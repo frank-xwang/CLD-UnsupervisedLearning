@@ -4,3 +4,5 @@
 by Xudong Wang, Ziwei Liu and Stella X. Yu from UC Berkeley/ICSI and NTU.
 
 Code will be released here.
+
+![alt tag](http://people.eecs.berkeley.edu/~xdwang/projects/CLD/CLD.png)
