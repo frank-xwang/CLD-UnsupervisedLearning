@@ -12,7 +12,7 @@ For more information, please check: [Project Page](http://people.eecs.berkeley.e
 [Preprint](https://arxiv.org/abs/2008.03813v4) | [BibTex](http://people.eecs.berkeley.edu/~xdwang/papers/CLD.txt)
 
 ## Updates
-[4/2021] Initial Commit. We re-implemented CLD in this repo. Keep tunning.
+[04/09/2021] Initial Commit. We re-implemented CLD in this repo. Keep tunning.
 
 ## Requirements
 ### Packages
