@@ -1,0 +1,8 @@
+checkpoint/
+checkpoint
+__pycache__/
+data/CIFAR-10/
+data/CIFAR-100/
+*.pyc
+*/__pycache__/
+results_summary.txt

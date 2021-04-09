@@ -1,10 +1,100 @@
-# CLD
+# CLD: Unsupervised Feature Learning by Cross-Level Instance-Group Discrimination.
+
+by Xudong Wang, Ziwei Liu and Stella X. Yu at UC Berkeley / ICSI and NTU. 
+
+<em>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2021.</em>
 
 <p align="center">
   <img src="http://people.eecs.berkeley.edu/~xdwang/projects/CLD/CLD.png"  width="60%" >
 </p>
 
-"Unsupervised Feature Learning by Cross-Level Instance-Group Discrimination" by Xudong Wang, Ziwei Liu and Stella X. Yu from UC Berkeley/ICSI and NTU. Code will be released here.
-
-[Project Page](http://people.eecs.berkeley.edu/~xdwang/projects/CLD/) | [PDF](http://people.eecs.berkeley.edu/~xdwang/papers/CLD.pdf) | 
+For more information, please check: [Project Page](http://people.eecs.berkeley.edu/~xdwang/projects/CLD/) | [PDF](http://people.eecs.berkeley.edu/~xdwang/papers/CLD.pdf) | 
 [Preprint](https://arxiv.org/abs/2008.03813v4) | [BibTex](http://people.eecs.berkeley.edu/~xdwang/papers/CLD.txt)
+
+## Updates
+[4/2021] Initial Commit. We re-implemented CLD in this repo. Keep tunning.
+
+## Requirements
+### Packages
+* Python >= 3.7, < 3.9
+* PyTorch >= 1.6
+* pandas
+* numpy
+* [apex](https://github.com/NVIDIA/apex) (optional, unless using mixed precision training)
+
+## Dataset Preparation
+CIFAR and STL-10 code will download data automatically with the dataloader. For ImageNet, please download the ImageNet-1k dataset from http://image-net.org/download. Moving validation images to labeled subfolders using the following script is required: https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh. For ImageNet-100, it was firstly used in CMC and contains 100 categories of ImageNet. The category list of ImageNet-100 can be found in data/imagenet100.txt. Please organize ImageNet-100 according to the following structure. For high-correlation dataset Kitchen-HC, it is constructed by extracting objects in their bounding boxes from the multi-view RGB-D Kitchen dataset. Kitchen-HC can be downloaded from https://drive.google.com/drive/folders/1GDJ47C81kejmPU_tC7q2FkleGiGtYFmn?usp=sharing.
+```
+data
+├── CIFAR-10
+│   └── cifar-10-batches-py
+│       ├── batches.meta
+│       ├── data_batch_1
+│       ├── ...
+│       ├── data_batch_5
+│       └── test_batch
+├── CIFAR-100
+│   └── cifar-100-python
+│       ├── file.txt~
+│       ├── meta
+│       ├── train
+│       └── test
+├── Kitchen-HC
+│   ├── train
+│   │   ├── n02869837
+│   │   ├── ...
+│   │   └── n02090622
+│   └── test
+│       ├── n02869837
+│       ├── ...
+│       └── n02090622
+├── ImageNet-100
+│   ├── train
+│   │   ├── n02869837
+│   │   ├── ...
+│   │   └── n02090622
+│   └── val
+│       ├── n02869837
+│       ├── ...
+│       └── n02090622
+└── ImageNet
+    ├── train
+    │   ├── n01440764
+    │   ├── ...
+    │   └── n15075141
+    └── val
+        ├── n01440764
+        ├── ...
+        └── n15075141
+```
+
+## Training and Evaluation Instructions
+### CIFAR-10 and CIFAR-100
+```
+bash scripts/train_cifar10_cld.sh or bash scripts/train_cifar100_cld.sh
+```
+| Method          | CIFAR-10 | CIFAR-100 | 
+| -------------- | ---------------- | ---------------- 
+| NPID                                | 80.8 | 51.6
+| **CLD+NPID (reported)**             | 86.7 | 57.5
+| **CLD+NPID (reproduced)**           | 86.8 | 58.8
+
+The model is trained with mixed precision (fp16) by default, it is necessary to install apex if you want to apply mixed precision training. The reproduced result is the average kNN accuracies of 3 runs.
+
+## How to get support from us?
+If you have any general questions, feel free to email us at `xdwang at eecs.berkeley.edu`. If you have code or implementation-related questions, please feel free to send emails to us or open an issue in this codebase (We recommend that you open an issue in this codebase, because your questions may help others). 
+
+
+## Citation
+If you find our work inspiring or use our codebase in your research, please cite our work.
+```
+@article{wang2020unsupervised,
+    title={Unsupervised Feature Learning by Cross-Level Instance-Group Discrimination},
+    author={Wang, Xudong and Liu, Ziwei and Yu, Stella X},
+    journal={arXiv preprint arXiv:2008.03813},
+    year={2020}
+}
+```
+
+## Acknowledgements
+Part of this code is based on [NPID](https://github.com/zhirongw/lemniscate.pytorch), [MoCo](https://github.com/facebookresearch/moco), [CMC](https://github.com/HobbitLong/CMC), [infoMin](https://github.com/HobbitLong/PyContrast) and [OpenSelfSup](https://github.com/open-mmlab/OpenSelfSup).
