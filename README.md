@@ -11,8 +11,9 @@ by Xudong Wang, Ziwei Liu and Stella X. Yu at UC Berkeley / ICSI and NTU.
 For more information, please check: [Project Page](http://people.eecs.berkeley.edu/~xdwang/projects/CLD/) | [PDF](http://people.eecs.berkeley.edu/~xdwang/papers/CLD.pdf) | 
 [Preprint](https://arxiv.org/abs/2008.03813v4) | [BibTex](http://people.eecs.berkeley.edu/~xdwang/papers/CLD.txt)
 
-## Updates
-[04/09/2021] Initial Commit. We re-implemented CLD in this repo. Keep tunning.
+## Updates (Keep updating)
+[04/12/2021] MoCo+CLD is supported now.
+[04/09/2021] Initial Commit. We re-implemented NPID+CLD in this repo.
 
 ## Requirements
 ### Packages
