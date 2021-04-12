@@ -4,5 +4,6 @@ __pycache__/
 data/CIFAR-10/
 data/CIFAR-100/
 *.pyc
+*.json
 */__pycache__/
 results_summary.txt

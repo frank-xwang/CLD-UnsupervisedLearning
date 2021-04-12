@@ -70,16 +70,30 @@ data
 
 ## Training and Evaluation Instructions
 ### CIFAR-10 and CIFAR-100
+#### NPID+CLD
 ```
-bash scripts/train_cifar10_cld.sh or bash scripts/train_cifar100_cld.sh
+bash scripts/train_cifar10_npid_cld.sh or bash scripts/train_cifar100_npid_cld.sh
 ```
-| Method          | CIFAR-10 | CIFAR-100 | 
-| -------------- | ---------------- | ---------------- 
-| NPID                                | 80.8 | 51.6
-| **CLD+NPID (reported)**             | 86.7 | 57.5
-| **CLD+NPID (reproduced)**           | 86.8 | 58.8
+| Method          | Projection Head   | CIFAR-10 | CIFAR-100 | 
+| --------------  | ----------------  | ---------------- | ---------------- 
+| NPID                                | Linear | 80.8 | 51.6
+| **NPID+CLD (reported)**             | Linear | 86.7 | 57.5
+| **NPID+CLD (reproduced)**           | Linear | 86.8 | 58.8
 
 The model is trained with mixed precision (fp16) by default, it is necessary to install apex if you want to apply mixed precision training. The reproduced result is the average kNN accuracies of 3 runs.
+
+#### MoCo+CLD
+```
+bash scripts/train_cifar10_moco_cld.sh or bash scripts/train_cifar100_moco_cld.sh
+```
+| Method          | Projection Head   | CIFAR-10 | CIFAR-100 | 
+| --------------  | ----------------  | ---------------- | ---------------- 
+| MoCo                                | Linear | 82.1 | 53.1
+| **MoCo+CLD (reported)**             | Linear | 87.5 | 58.1
+| **MoCo+CLD (reproduced)**           | Linear | 87.6 | 59.1
+| **MoCo+CLD (reproduced)**           | NormLinear | N/A | 59.7
+
+The model is trained with the proposed NormLinear as the projection head by default. Other settings are the same as NPID+CLD.
 
 ## How to get support from us?
 If you have any general questions, feel free to email us at `xdwang at eecs.berkeley.edu`. If you have code or implementation-related questions, please feel free to send emails to us or open an issue in this codebase (We recommend that you open an issue in this codebase, because your questions may help others). 

@@ -71,10 +71,10 @@ parser.add_argument('--k_eigen', default=10, type=int,
 parser.add_argument('--cld_t', default=0.07, type=float,
                     help='temperature for clustering')
 parser.add_argument('--two-imgs', action='store_true', help='Whether use two randomly processed images')
-parser.add_argument('--use-kmeans', action='store_true', help='Whether use two randomly processed images')
+parser.add_argument('--use-kmeans', action='store_true', help='Whether use k-means for clustering. Use normalized cuts if it is False')
 parser.add_argument('--num_iters', default=20, type=int,
                     help='num of iters for clustering')
-parser.add_argument('--Lambda', default=1.0, type=float, help='lambda for batchDis branch')
+parser.add_argument('--Lambda', default=1.0, type=float, help='Lambda for groupDis branch')
 
 # misc
 parser.add_argument("--local_rank", type=int, help='local rank for DistributedDataParallel')
@@ -226,7 +226,7 @@ def train(epoch):
             cluster_label2, centroids2 = spectral_clustering(features_batchDis2, K=args.k_eigen,
                         clusters=args.clusters, Niters=args.num_iters)
 
-        # group discriminative learning
+        # instance-group discriminative learning
         affnity1 = torch.mm(features_batchDis1, centroids2.t())
         CLD_loss = criterion_cld(affnity1.div_(args.cld_t), cluster_label2)
 

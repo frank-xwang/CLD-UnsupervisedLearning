@@ -12,7 +12,17 @@ import torch.nn.functional as F
 from lib.normalize import Normalize
 
 from torch.autograd import Variable
+from torch.nn import Parameter
 
+class NormedLinear(nn.Module):
+    def __init__(self, in_features, out_features):
+        super(NormedLinear, self).__init__()
+        self.weight = Parameter(torch.Tensor(in_features, out_features))
+        self.weight.data.uniform_(-1, 1).renorm_(2, 1, 1e-5).mul_(1e5)
+
+    def forward(self, x):
+        out = F.normalize(x, dim=1).mm(F.normalize(self.weight, dim=0))
+        return out
 
 class BasicBlock(nn.Module):
     expansion = 1
@@ -68,10 +78,11 @@ class Bottleneck(nn.Module):
 
 
 class ResNet(nn.Module):
-    def __init__(self, block, num_blocks, low_dim=128, medium_dim=128, mlp=False, pool_len=4):
+    def __init__(self, block, num_blocks, low_dim=128, medium_dim=128, mlp=False, pool_len=4, normlinear=False):
         super(ResNet, self).__init__()
         self.pool_len = pool_len
         self.in_planes = 64
+        linear_layer = NormedLinear if normlinear else nn.Linear
 
         self.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(64)
@@ -84,14 +95,14 @@ class ResNet(nn.Module):
             self.pre_fc = nn.Sequential(
                 nn.Linear(512*block.expansion, medium_dim),
             )
-            self.linear = nn.Linear(medium_dim, low_dim)
+            self.linear = linear_layer(medium_dim, low_dim)
             self.l2norm = Normalize(2)
         else:
-            self.linear = nn.Linear(512*block.expansion, low_dim)
+            self.linear = linear_layer(512*block.expansion, low_dim)
             self.l2norm = Normalize(2)
 
         self.groupDis = nn.Sequential(
-            nn.Linear(512*block.expansion, low_dim),
+            linear_layer(512*block.expansion, low_dim),
             Normalize(2))
 
     def _make_layer(self, block, planes, num_blocks, stride):
@@ -120,8 +131,8 @@ class ResNet(nn.Module):
         return out
 
 
-def ResNet18(low_dim=128, medium_dim=128, mlp=False, pool_len=4):
-    return ResNet(BasicBlock, [2,2,2,2], low_dim, medium_dim=medium_dim, mlp=mlp, pool_len=pool_len)
+def ResNet18(low_dim=128, medium_dim=128, mlp=False, pool_len=4, normlinear=False):
+    return ResNet(BasicBlock, [2,2,2,2], low_dim, medium_dim=medium_dim, mlp=mlp, pool_len=pool_len, normlinear=normlinear)
 
 
 def test():

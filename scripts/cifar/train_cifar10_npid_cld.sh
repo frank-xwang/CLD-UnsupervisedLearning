@@ -1,13 +1,13 @@
 bs=256
-clusters=200
+clusters=128
 scheduler=cosine
 weightdecay=7e-4
 lambda=1.0
-dataset=cifar100
-GPU_ID=8
+dataset=cifar10
+GPU_ID=0
 CUDA_VISIBLE_DEVICES=${GPU_ID} \
 python -m torch.distributed.launch \
---master_port 1233${GPU_ID} --nproc_per_node=1 cifar_cld.py \
+--master_port 1233${GPU_ID} --nproc_per_node=1 train_cifar_npid_cld.py \
 --batch-size ${bs} \
 --lr 0.03 \
 --epochs 200 \
@@ -28,4 +28,4 @@ python -m torch.distributed.launch \
 --opt-level O1 \
 --num_workers 4 \
 --recompute-memory \
---save-dir "checkpoint/${dataset}/CLD/resnet18/lr0.03-bs${bs}-clusters${clusters}-lambda${lambda}-${scheduler}-weightDecay${weightdecay}-fp16" \
+--save-dir "checkpoint/${dataset}/NPID+CLD/resnet18/lr0.03-bs${bs}-clusters${clusters}-lambda${lambda}-${scheduler}-weightDecay${weightdecay}-fp16" \

@@ -7,9 +7,10 @@ class CIFAR10Instance(datasets.CIFAR10):
     """CIFAR10Instance Dataset.
     """
 
-    def __init__(self, root='./data/cifar10', train=True, download=True, transform=None, two_imgs=False):
+    def __init__(self, root='./data/cifar10', train=True, download=True, transform=None, two_imgs=False, three_imgs=False):
         super(CIFAR10Instance, self).__init__(root=root, train=train, download=download, transform=transform)
         self.two_imgs = two_imgs
+        self.three_imgs = three_imgs
     
     def __getitem__(self, index):
         if self.train:
@@ -30,6 +31,10 @@ class CIFAR10Instance(datasets.CIFAR10):
         if self.two_imgs:
             img2 = self.transform(img)
             return (img1, img2), target, index
+        elif self.three_imgs:
+            img2 = self.transform(img)
+            img3 = self.transform(img)
+            return (img1, img2, img3), target, index
         else:
             return img1, target, index
 
