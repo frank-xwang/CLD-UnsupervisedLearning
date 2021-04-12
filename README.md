@@ -14,7 +14,7 @@ For more information, please check: [Project Page](http://people.eecs.berkeley.e
 ## Updates (Keep updating)
 [04/12/2021] MoCo+CLD is supported now.
 
-[04/09/2021] Initial Commit. We re-implemented NPID+CLD in this repo.
+[04/09/2021] Initial Commit. We re-implemented NPID+CLD in this repo. We also plan to support MoCo+CLD, BYOL+CLD and InfoMin+CLD.
 
 ## Requirements
 ### Packages
