@@ -110,7 +110,7 @@ If you find our work inspiring or use our codebase in your research, please cite
 }
 ```
 
-### License
+## License
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for more details. The parts described below follow their original license.
 
 ## Acknowledgements
