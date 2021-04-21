@@ -114,6 +114,7 @@ bash CLD-UnsupervisedLearning/scripts/imagenet/test_imagenet_moco_cld.sh
 | MoCov2                   | MLP     | 67.5 | - 
 | **MoCov2+CLD**           | MLP     | 69.2 | link 
 | **MoCov2+CLD**           | NormMLP | 70.0 | link 
+
 It is necesary to change the DATA_DIR, SAVE_DIR and PRETRAINED_MODEL. All models are pretrained for 200 epochs.
 
 ## How to get support from us?
