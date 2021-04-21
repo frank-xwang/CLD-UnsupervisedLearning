@@ -107,7 +107,7 @@ bash scripts/imagenet/train_imagenet_mocov2_cld.sh
 ```
 linear evaluation
 ```
-bash CLD-UnsupervisedLearning/scripts/imagenet/test_imagenet_moco_cld.sh
+bash scripts/imagenet/test_imagenet_moco_cld.sh
 ```
 | Method            | Projection Head   | Top-1 (%) | Models
 | --------------    | ----------------  | ---------------- | ---------------- 
