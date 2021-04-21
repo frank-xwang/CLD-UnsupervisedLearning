@@ -94,7 +94,7 @@ bash scripts/train_cifar10_moco_cld.sh or bash scripts/train_cifar100_moco_cld.s
 | --------------  | ----------------  | ---------------- | ---------------- 
 | MoCo                                | Linear | 82.1 | 53.1
 | **MoCo+CLD (reported)**             | Linear | 87.5 | 58.1
-| **MoCo+CLD (reproduced)**           | Linear | 87.6 | 59.1
+| **MoCo+CLD (reproduced)**           | Linear | N/A | 59.1
 | **MoCo+CLD (reproduced)**           | NormLinear | N/A | 59.7
 
 The model is trained with the proposed NormLinear as the projection head by default. Other settings are the same as NPID+CLD.
