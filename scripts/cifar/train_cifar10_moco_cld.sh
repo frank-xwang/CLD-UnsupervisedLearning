@@ -1,11 +1,11 @@
-bs=128
-clusters=100
+bs=256
+clusters=200
 scheduler=cosine
-weightdecay=7e-4
-lambda=0.25
+weightdecay=8e-4
+lambda=0.8
 cld_t=0.2
 nce_t=0.07
-nce_k=4096
+nce_k=12288
 bs_lr=0.03
 dataset=cifar10
 GPU_ID=0
@@ -28,4 +28,6 @@ python -m torch.distributed.launch --master_port 1233${GPU_ID} --nproc_per_node=
     --num-iters 5 \
     --Lambda ${lambda} \
     --normlinear \
-    --save-dir "checkpoint/${dataset}/MoCo+CLD/resnet18/lr0.03-bs${bs}-cldT${cld_t}-nceT${nce_t}-clusters${clusters}-lambda${lambda}-${scheduler}-weightDecay${weightdecay}-fp16-add_erasing-kMeans-ncek${nce_k}-bslr${bs_lr}-normlinear" \
+    --aug-plus \
+    --erasing \
+    --save-dir "checkpoint/${dataset}/MoCo+CLD/resnet18/lr0.03-bs${bs}-cldT${cld_t}-nceT${nce_t}-clusters${clusters}-lambda${lambda}-${scheduler}-weightDecay${weightdecay}-fp16-add_erasing-AugPlus-kMeans-ncek${nce_k}-bslr${bs_lr}-normlinear" \

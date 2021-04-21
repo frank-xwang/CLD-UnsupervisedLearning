@@ -8,16 +8,44 @@ import torchvision
 import torchvision.transforms as transforms
 import datasets
 
-def get_dataloader(args, add_erasing):
+from PIL import ImageFilter
+import random
+
+class GaussianBlur(object):
+    """Gaussian blur augmentation in SimCLR https://arxiv.org/abs/2002.05709"""
+
+    def __init__(self, sigma=[.1, 2.]):
+        self.sigma = sigma
+
+    def __call__(self, x):
+        sigma = random.uniform(self.sigma[0], self.sigma[1])
+        x = x.filter(ImageFilter.GaussianBlur(radius=sigma))
+        return x
+
+def get_dataloader(args, add_erasing, aug_plus=False):
     if 'cifar' in args.dataset or 'kitchen' in args.dataset:
-        transform_train_list = [
-            transforms.RandomResizedCrop(size=32, scale=(0.2,1.)),
-            transforms.ColorJitter(0.4, 0.4, 0.4, 0.4),
-            transforms.RandomGrayscale(p=0.2),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
-        ]
+        if aug_plus:
+            # MoCo v2's aug: similar to SimCLR https://arxiv.org/abs/2002.05709
+            transform_train_list = [
+                transforms.RandomResizedCrop(size=32, scale=(0.2,1.)),
+                transforms.RandomApply([
+                    transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)  # not strengthened
+                ], p=0.8),
+                transforms.RandomGrayscale(p=0.2),
+                transforms.RandomApply([GaussianBlur([.1, 2.])], p=0.5),
+                transforms.RandomHorizontalFlip(),
+                transforms.ToTensor(),
+                transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+            ]
+        else:
+            transform_train_list = [
+                transforms.RandomResizedCrop(size=32, scale=(0.2,1.)),
+                transforms.ColorJitter(0.4, 0.4, 0.4, 0.4),
+                transforms.RandomGrayscale(p=0.2),
+                transforms.RandomHorizontalFlip(),
+                transforms.ToTensor(),
+                transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+            ]
         if add_erasing:
             transform_train_list.append(transforms.RandomErasing(p=1.0))
         transform_train = transforms.Compose(transform_train_list)

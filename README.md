@@ -12,7 +12,11 @@ For more information, please check: [Project Page](http://people.eecs.berkeley.e
 [Preprint](https://arxiv.org/abs/2008.03813v4) | [BibTex](http://people.eecs.berkeley.edu/~xdwang/papers/CLD.txt)
 
 ## Updates
-[04/09/2021] Initial Commit. We re-implemented CLD in this repo. Keep tunning.
+[04/20/2021] Training and linear evaluating MoCo v2 + CLD on ImageNet is supported.
+
+[04/12/2021] Training MoCo + CLD on CIFAR is supported now.
+
+[04/09/2021] Initial Commit. Training NPID + CLD on CIFAR is avaliable now in this repo. We also plan to support MoCo+CLD, BYOL+CLD and InfoMin+CLD.
 
 ## Requirements
 ### Packages
@@ -70,7 +74,7 @@ data
 
 ## Training and Evaluation Instructions
 ### CIFAR-10 and CIFAR-100
-#### NPID+CLD
+#### NPID + CLD
 ```
 bash scripts/train_cifar10_npid_cld.sh or bash scripts/train_cifar100_npid_cld.sh
 ```
@@ -82,7 +86,7 @@ bash scripts/train_cifar10_npid_cld.sh or bash scripts/train_cifar100_npid_cld.s
 
 The model is trained with mixed precision (fp16) by default, it is necessary to install apex if you want to apply mixed precision training. The reproduced result is the average kNN accuracies of 3 runs.
 
-#### MoCo+CLD
+#### MoCo + CLD
 ```
 bash scripts/train_cifar10_moco_cld.sh or bash scripts/train_cifar100_moco_cld.sh
 ```
@@ -94,6 +98,23 @@ bash scripts/train_cifar10_moco_cld.sh or bash scripts/train_cifar100_moco_cld.s
 | **MoCo+CLD (reproduced)**           | NormLinear | N/A | 59.7
 
 The model is trained with the proposed NormLinear as the projection head by default. Other settings are the same as NPID+CLD.
+
+### ImageNet
+#### MoCo v2 + CLD
+train
+```
+bash scripts/imagenet/train_imagenet_mocov2_cld.sh
+```
+linear evaluation
+```
+bash CLD-UnsupervisedLearning/scripts/imagenet/test_imagenet_moco_cld.sh
+```
+| Method            | Projection Head   | ImageNet | Link
+| --------------    | ----------------  | ---------------- | ---------------- 
+| MoCov2                   | MLP     | 67.5 | - 
+| **MoCov2+CLD**           | MLP     | 69.2 | N/A 
+| **MoCov2+CLD**           | NormMLP | 70.0 | N/A 
+It is necesary to change the DATA_DIR, SAVE_DIR and PRETRAINED_MODEL. All models are pretrained for 200 epochs.
 
 ## How to get support from us?
 If you have any general questions, feel free to email us at `xdwang at eecs.berkeley.edu`. If you have code or implementation-related questions, please feel free to send emails to us or open an issue in this codebase (We recommend that you open an issue in this codebase, because your questions may help others). 

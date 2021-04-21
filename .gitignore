@@ -7,3 +7,4 @@ data/CIFAR-100/
 *.json
 */__pycache__/
 results_summary.txt
+*_.sh

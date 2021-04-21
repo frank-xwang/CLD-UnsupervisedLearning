@@ -97,6 +97,8 @@ def parse_option():
     parser.add_argument('--two-imgs', action='store_true', help='Whether use two randomly processed images')
     parser.add_argument('--three-imgs', action='store_true', help='Whether use three randomly processed images')
     parser.add_argument('--normlinear', action='store_true', help='whether use normalization linear layer')
+    parser.add_argument('--aug-plus', action='store_true', help='whether add strong augmentation')
+    parser.add_argument('--erasing', action='store_true', help='whether add random erasing as an augmentation')
 
     args = parser.parse_args()
 
@@ -160,7 +162,7 @@ def main(args):
 
     # Data
     print('==> Preparing data..')
-    train_loader, test_loader, ndata = get_dataloader(args, add_erasing=True)
+    train_loader, test_loader, ndata = get_dataloader(args, add_erasing=args.erasing, aug_plus=args.aug_plus)
 
     logger.info(f"length of training dataset: {ndata}")
 
@@ -231,7 +233,7 @@ def main(args):
         acc1, acc5 = kNN(epoch, model, contrast, train_loader, test_loader, 200, args.nce_t, True)
 
     logger.info('KNN top-1 and top-5 precion with recomputed memory bank: {:.4f} {:.4f}'.format(acc1*100., acc5*100))
-    logger.info('Best KNN top-1 and top-5 precion: {:.4f} {:.4f}'.format(args.best_acc*100., args.best_acc5*100))
+    logger.info('Best KNN top-1 and top-5 precion: {:.4f} {:.4f}'.format(args.best_acc*100., best_acc5*100))
     logger.info(str(args))
 
 
@@ -354,7 +356,7 @@ if __name__ == '__main__':
     cudnn.benchmark = True
 
     os.makedirs(opt.save_dir, exist_ok=True)
-    logger = setup_logger(output=opt.save_dir, distributed_rank=dist.get_rank(), name="moco")
+    logger = setup_logger(output=opt.save_dir, distributed_rank=dist.get_rank(), name="moco+cld")
     if dist.get_rank() == 0:
         path = os.path.join(opt.save_dir, "config.json")
         with open(path, 'w') as f:
