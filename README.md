@@ -112,7 +112,7 @@ bash scripts/imagenet/test_imagenet_moco_cld.sh
 | Method            | Projection Head   | Top-1 (%) | Models
 | --------------    | ----------------  | ---------------- | ---------------- 
 | MoCov2                   | MLP     | 67.5 | - 
-| **MoCov2+CLD**           | MLP     | 69.2 | link 
+| **MoCov2+CLD**           | MLP     | 69.2 | [link](https://drive.google.com/file/d/1LAd0YMaRLZtqjDTukf1OKyFTrGUt9YgP/view?usp=sharing) 
 | **MoCov2+CLD**           | NormMLP | 70.0 | [link](https://drive.google.com/file/d/1Jc2_rJiFZF1PzNB7UPyzhzpIv_NfUuls/view?usp=sharing)  
 
 It is necesary to change the DATA_DIR, SAVE_DIR and PRETRAINED_MODEL. All models are pretrained for 200 epochs and evaluated with standard augmentation, linear decay scheduler and SGD optimizer.
