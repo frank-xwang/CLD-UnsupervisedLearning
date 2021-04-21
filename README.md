@@ -109,7 +109,7 @@ linear evaluation
 ```
 bash CLD-UnsupervisedLearning/scripts/imagenet/test_imagenet_moco_cld.sh
 ```
-| Method            | Projection Head   | ImageNet | Models
+| Method            | Projection Head   | top-1 (%) | Models
 | --------------    | ----------------  | ---------------- | ---------------- 
 | MoCov2                   | MLP     | 67.5 | - 
 | **MoCov2+CLD**           | MLP     | 69.2 | link 
