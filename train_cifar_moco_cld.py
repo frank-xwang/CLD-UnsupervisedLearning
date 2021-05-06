@@ -94,8 +94,8 @@ def parse_option():
                         help='num of iters for clustering')
     parser.add_argument('--Lambda', default=1.0, type=float,
                         help='weight of mutual information loss')
-    parser.add_argument('--two-imgs', action='store_true', help='Whether use two randomly processed images')
-    parser.add_argument('--three-imgs', action='store_true', help='Whether use three randomly processed images')
+    parser.add_argument('--two-imgs', action='store_true', help='Whether use two randomly processed views')
+    parser.add_argument('--three-imgs', action='store_true', help='Whether use three randomly processed views')
     parser.add_argument('--normlinear', action='store_true', help='whether use normalization linear layer')
     parser.add_argument('--aug-plus', action='store_true', help='whether add strong augmentation')
     parser.add_argument('--erasing', action='store_true', help='whether add random erasing as an augmentation')
