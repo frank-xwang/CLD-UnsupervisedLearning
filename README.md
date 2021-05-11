@@ -8,7 +8,7 @@ by Xudong Wang, Ziwei Liu and Stella X. Yu at UC Berkeley / ICSI and NTU.
   <img src="http://people.eecs.berkeley.edu/~xdwang/projects/CLD/CLD.png"  width="60%" >
 </p>
 
-For more information, please check: [Project Page](http://people.eecs.berkeley.edu/~xdwang/projects/CLD/) | [PDF](http://people.eecs.berkeley.edu/~xdwang/papers/CLD.pdf) | 
+For more information, please check: [Project Page](http://people.eecs.berkeley.edu/~xdwang/projects/CLD/) | [PDF](http://people.eecs.berkeley.edu/~xdwang/papers/CVPR2021_CLD.pdf) | 
 [Preprint](https://arxiv.org/abs/2008.03813v4) | [BibTex](http://people.eecs.berkeley.edu/~xdwang/papers/CLD.txt)
 
 ## Updates
