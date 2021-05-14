@@ -22,7 +22,7 @@ class GaussianBlur(object):
         x = x.filter(ImageFilter.GaussianBlur(radius=sigma))
         return x
 
-def get_dataloader(args, add_erasing, aug_plus=False):
+def get_dataloader(args, add_erasing=False, aug_plus=False):
     if 'cifar' in args.dataset or 'kitchen' in args.dataset:
         if aug_plus:
             # MoCo v2's aug: similar to SimCLR https://arxiv.org/abs/2002.05709

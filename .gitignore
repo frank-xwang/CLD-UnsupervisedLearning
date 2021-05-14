@@ -1,5 +1,9 @@
 checkpoint/
 checkpoint
+tb
+tb/
+output
+output/
 __pycache__/
 data/CIFAR-10/
 data/CIFAR-100/
@@ -8,3 +12,6 @@ data/CIFAR-100/
 */__pycache__/
 results_summary.txt
 *_.sh
+train_cifar_npid_cld_wideresnet.py
+models/wideresnet.py
+scripts/cifar/train_cifar10_npid_cld_wrn.sh
