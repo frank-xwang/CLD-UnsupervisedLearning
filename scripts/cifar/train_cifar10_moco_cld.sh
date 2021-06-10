@@ -8,7 +8,7 @@ nce_t=0.07
 nce_k=12288
 bs_lr=0.03
 dataset=cifar10
-GPU_ID=0
+GPU_ID=4
 CUDA_VISIBLE_DEVICES=${GPU_ID} \
 python -m torch.distributed.launch --master_port 1233${GPU_ID} --nproc_per_node=1 \
     train_cifar_moco_cld.py \
@@ -30,4 +30,5 @@ python -m torch.distributed.launch --master_port 1233${GPU_ID} --nproc_per_node=
     --normlinear \
     --aug-plus \
     --erasing \
+    --clusters ${clusters} \
     --save-dir "checkpoint/${dataset}/MoCo+CLD/resnet18/lr0.03-bs${bs}-cldT${cld_t}-nceT${nce_t}-clusters${clusters}-lambda${lambda}-${scheduler}-weightDecay${weightdecay}-fp16-add_erasing-AugPlus-kMeans-ncek${nce_k}-bslr${bs_lr}-normlinear" \

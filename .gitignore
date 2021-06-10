@@ -4,6 +4,8 @@ tb
 tb/
 output
 output/
+save/*
+data/*
 __pycache__/
 data/CIFAR-10/
 data/CIFAR-100/

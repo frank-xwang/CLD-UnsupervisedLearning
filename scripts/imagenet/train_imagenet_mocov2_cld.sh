@@ -1,7 +1,7 @@
 lr=0.2
 Lambda=0.25
 cld_t=0.4
-clusters=100
+clusters=120
 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
 python main_imagenet_moco_cld.py \
   -a resnet50 \

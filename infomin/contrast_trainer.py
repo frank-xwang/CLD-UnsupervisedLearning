@@ -11,6 +11,8 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from .utils import AverageMeter, accuracy
 from .base_trainer import BaseTrainer
 
+from spectral_clustering import spectral_clustering, pairwise_cosine_similarity, KMeans
+
 try:
     from apex import amp, optimizers
 except ImportError:
@@ -555,7 +557,7 @@ class ContrastTrainer(BaseTrainer):
                     args.beta * losses2[1]
 
                 # Calculate grouping loss
-                loss_group = args.Lambda*self.grouping(q1b2, q2b2, args.cld_t)
+                loss_group = args.Lambda*self.grouping(q1b2, q2b2, args.cld_t, args)
 
                 # Combine losses from two sets
                 loss = (loss + loss2)/2 + loss_group
@@ -638,6 +640,27 @@ class ContrastTrainer(BaseTrainer):
         loss2 = criterion(logits2.div_(T), targets2)
         return (loss1 + loss2)/2
 
+    def grouping(self, features_groupDis1, features_groupDis2, T, args):
+        criterion = nn.CrossEntropyLoss().cuda()
+        # K-way normalized cuts or k-Means. Default: k-Means
+        if args.use_kmeans:
+            cluster_label1, centroids1 = KMeans(features_groupDis1, K=args.clusters, Niters=args.num_iters)
+            cluster_label2, centroids2 = KMeans(features_groupDis2, K=args.clusters, Niters=args.num_iters)
+        else:
+            cluster_label1, centroids1 = spectral_clustering(features_groupDis1, K=args.k_eigen,
+                        clusters=args.clusters, Niters=args.num_iters)
+            cluster_label2, centroids2 = spectral_clustering(features_groupDis2, K=args.k_eigen,
+                        clusters=args.clusters, Niters=args.num_iters)
+
+        # group discriminative learning
+        affnity1 = torch.mm(features_groupDis1, centroids2.t())
+        CLD_loss = criterion(affnity1.div_(T), cluster_label2)
+
+        affnity2 = torch.mm(features_groupDis2, centroids1.t())
+        CLD_loss = (CLD_loss + criterion(affnity2.div_(T), cluster_label1))/2
+
+        return CLD_loss
+        
     @staticmethod
     def momentum_update(model, model_ema, m):
         """ model_ema = m * model_ema + (1 - m) model """

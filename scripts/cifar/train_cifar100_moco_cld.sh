@@ -28,4 +28,5 @@ python -m torch.distributed.launch --master_port 1233${GPU_ID} --nproc_per_node=
     --num-iters 5 \
     --Lambda ${lambda} \
     --normlinear \
+    --clusters ${clusters} \
     --save-dir "checkpoint/${dataset}/MoCo+CLD/resnet18/lr0.03-bs${bs}-cldT${cld_t}-nceT${nce_t}-clusters${clusters}-lambda${lambda}-${scheduler}-weightDecay${weightdecay}-fp16-add_erasing-kMeans-ncek${nce_k}-bslr${bs_lr}-normlinear" \

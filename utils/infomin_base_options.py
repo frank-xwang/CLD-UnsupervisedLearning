@@ -90,6 +90,14 @@ class BaseOptions(object):
                             help='weight of CLD loss')
         parser.add_argument('--cld-t', default=0.07, type=float,
                             help='temperature of CLD')
+        parser.add_argument('--clusters', default=100, type=int,
+                    help='num of clusters for clustering')
+        parser.add_argument('--k-eigen', default=100, type=int,
+                            help='num of eigenvectors for k-way normalized cuts')
+        parser.add_argument('--num-iters', default=10, type=int,
+                            help='num of iters for clustering')
+        parser.add_argument('--use-kmeans', action='store_true', 
+                            help='Whether use two randomly processed images')
 
         # resume
         parser.add_argument('--resume', default='', type=str, metavar='PATH',

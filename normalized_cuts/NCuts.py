@@ -137,7 +137,7 @@ if __name__ == '__main__':
     # b = np.array(a.split(','))
  
     # This is sparse eigenvector method
-    img = cv2.imread('/home/xwang/lemniscate.pytorch/normalized_cuts/Ncut_test.png', cv2.IMREAD_COLOR)
+    img = cv2.imread('Ncut_test.png', cv2.IMREAD_COLOR)
     # img = data.coffee()
     # img = resize(img, (img.shape[0] // 4, img.shape[1] // 4), anti_aliasing=True)
     print('Loaded image with shape of: {}'.format(img.shape))
