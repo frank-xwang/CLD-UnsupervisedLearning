@@ -12,7 +12,7 @@ For more information, please check: [Project Page](http://people.eecs.berkeley.e
 [Preprint](https://arxiv.org/abs/2008.03813v4) | [BibTex](http://people.eecs.berkeley.edu/~xdwang/papers/CLD.txt)
 
 ## Updates
-[06/8/2021] Training and linear evaluating InfoMin + CLD on ImageNet is supported.
+[06/08/2021] Training and linear evaluating InfoMin + CLD on ImageNet is supported.
 
 [05/20/2021] Training and linear evaluating MoCo v2 + CLD on ImageNet is supported.
 
