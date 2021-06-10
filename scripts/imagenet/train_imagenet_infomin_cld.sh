@@ -15,6 +15,6 @@ python3 main_imagenet_infomin_cld.py \
   --clusters 120 \
   --use-kmeans \
   --num-iters 5 \
-  --data_folder DATA_DIR \
   --model_path 'output/imagenet/infomin+cld/model/' \
-  --tb_path 'output/imagenet/infomin+cld/tb/'
+  --tb_path 'output/imagenet/infomin+cld/tb/' \
+  --data_folder DATA_DIR \

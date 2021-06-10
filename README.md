@@ -12,9 +12,9 @@ For more information, please check: [Project Page](http://people.eecs.berkeley.e
 [Preprint](https://arxiv.org/abs/2008.03813v4) | [BibTex](http://people.eecs.berkeley.edu/~xdwang/papers/CLD.txt)
 
 ## Updates
-[04/21/2021] Training and linear evaluating InfoMin + CLD on ImageNet is supported.
+[06/8/2021] Training and linear evaluating InfoMin + CLD on ImageNet is supported.
 
-[04/20/2021] Training and linear evaluating MoCo v2 + CLD on ImageNet is supported.
+[05/20/2021] Training and linear evaluating MoCo v2 + CLD on ImageNet is supported.
 
 [04/12/2021] Training MoCo + CLD on CIFAR is supported now.
 
@@ -29,7 +29,7 @@ For more information, please check: [Project Page](http://people.eecs.berkeley.e
 * [apex](https://github.com/NVIDIA/apex) (optional, unless using mixed precision training)
 
 ## Dataset Preparation
-CIFAR and STL-10 code will download data automatically with the dataloader. For ImageNet, please download the ImageNet-1k dataset from http://image-net.org/download. Moving validation images to labeled subfolders using the following script is required: https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh. For ImageNet-100, it was firstly used in CMC and contains 100 categories of ImageNet. The category list of ImageNet-100 can be found in data/imagenet100.txt. Please organize ImageNet-100 according to the following structure. For high-correlation dataset Kitchen-HC, it is constructed by extracting objects in their bounding boxes from the multi-view RGB-D Kitchen dataset. Kitchen-HC can be downloaded from https://drive.google.com/drive/folders/1GDJ47C81kejmPU_tC7q2FkleGiGtYFmn?usp=sharing.
+CIFAR and STL-10 code will download data automatically with the dataloader. For ImageNet, please download the ImageNet-1k dataset from [here](http://image-net.org/download). Moving validation images to labeled subfolders using the following script is required: [valprep.sh](https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh). For ImageNet-100, it was firstly used in CMC and contains 100 categories of ImageNet. The category list of ImageNet-100 can be found in data/imagenet100.txt. Please organize ImageNet-100 according to the following structure. For high-correlation dataset Kitchen-HC, it is constructed by extracting objects in their bounding boxes from the multi-view RGB-D Kitchen dataset. Kitchen-HC can be downloaded from [this link](https://drive.google.com/drive/folders/1GDJ47C81kejmPU_tC7q2FkleGiGtYFmn?usp=sharing).
 ```
 data
 ├── CIFAR-10
@@ -119,6 +119,24 @@ bash scripts/imagenet/test_imagenet_moco_cld.sh
 
 It is necesary to change the DATA_DIR, SAVE_DIR and PRETRAINED_MODEL. All models are pretrained for 200 epochs and evaluated with standard augmentation, linear decay scheduler and SGD optimizer.
 
+#### InfoMin + CLD
+train
+```
+bash scripts/imagenet/train_imagenet_infomin_cld.sh
+```
+linear evaluation
+```
+bash scripts/imagenet/test_imagenet_infomin_cld.sh
+```
+| Method            | Projection Head   | #epochs | Top-1 (%) | Models
+| --------------    | ----------------  | ---------------- | ---------------- | ---------------- 
+| InfoMin           | MLP     | 100 | 67.4 | - 
+| **CLD**           | MLP     | 100 | 69.5 | [link](https://drive.google.com/file/d/1THFDbMdDlC81LJ8ZjNxTIanYZ-Dj238g/view?usp=sharing) 
+| **CLD**           | NormMLP | 100 | 70.1 | link
+| **CLD**           | MLP     | 200 | 70.6 | link
+| **CLD**           | NormMLP | 200 | 71.5 | [link](https://drive.google.com/file/d/18hs7B4eQQK03p-dRhvJsVkw34Lm5Sg_x/view?usp=sharing)  
+
+Please change the DATA_DIR and PRETRAINED_MODEL before launching experiments.
 
 ## How to get support from us?
 If you have any general questions, feel free to email us at `xdwang at eecs.berkeley.edu`. If you have code or implementation-related questions, please feel free to send emails to us or open an issue in this codebase (We recommend that you open an issue in this codebase, because your questions may help others). 
