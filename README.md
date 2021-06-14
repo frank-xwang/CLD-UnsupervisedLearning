@@ -145,11 +145,13 @@ If you have any general questions, feel free to email us at `xdwang at eecs.berk
 ## Citation
 If you find our work inspiring or use our codebase in your research, please cite our work.
 ```
-@article{wang2020unsupervised,
-  title={Unsupervised Feature Learning by Cross-Level Discrimination between Instances and Groups},
-  author={Wang, Xudong and Liu, Ziwei and Yu, Stella X},
-  journal={arXiv preprint arXiv:2008.03813},
-  year={2020}
+@InProceedings{Wang_2021_CVPR,
+    author    = {Wang, Xudong and Liu, Ziwei and Yu, Stella X.},
+    title     = {Unsupervised Feature Learning by Cross-Level Instance-Group Discrimination},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2021},
+    pages     = {12586-12595}
 }
 ```
 
